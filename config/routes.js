@@ -24,13 +24,17 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/': {
+  'GET /': {
     view: 'pages/homepage'
   },
 
-  '/room/:room_id': {
+  'GET /room/:room_id': {
     controller: 'RoomController',
     action: 'joinRoom'
+  },
+
+  'GET /createRoom/:room_id': {
+    view: 'pages/createRoom'
   },
 
   'GET /events/:room_id': {
