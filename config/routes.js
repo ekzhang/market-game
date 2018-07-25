@@ -28,6 +28,16 @@ module.exports.routes = {
     view: 'pages/homepage'
   },
 
+  '/room/:room_id': {
+    controller: 'RoomController',
+    action: 'joinRoom'
+  },
+
+  'GET /events/:room_id': {
+    controller: 'EventController',
+    action: 'filterRoom'
+  }
+
   /***************************************************************************
   *                                                                          *
   * More custom routes here...                                               *
