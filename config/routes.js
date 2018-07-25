@@ -34,12 +34,18 @@ module.exports.routes = {
   },
 
   'GET /createRoom/:room_id': {
-    view: 'pages/createRoom'
+    controller: 'RoomController',
+    action: 'createRoom'
   },
 
   'GET /events/:room_id': {
     controller: 'EventController',
     action: 'filterRoom'
+  },
+
+  'POST /newRoom': {
+    controller: 'RoomController',
+    action: 'newRoom'
   }
 
   /***************************************************************************

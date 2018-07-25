@@ -1,8 +1,8 @@
-<div ng-controller="CreateRoomController">
-  <h1>Hello</h1>
+<div ng-controller="CreateRoomController" ng-init="room = <%= room %>">
+  <h1>Create Room: {{room}}</h1>
   Options for room: TODO <br>
   Question: <input ng-model="question"> <br>
-  Answer: <input ng-model="value"> <br>
+  Answer: <input ng-model="answer"> <br>
 
-  <button ng-submit="...">Create!</button>
+  <button ng-click="newRoom()">Create!</button>
 </div>
