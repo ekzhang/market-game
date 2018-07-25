@@ -12,6 +12,10 @@ a [Sails v1](https://sailsjs.com) application
 + [Community support options](https://sailsjs.com/support)
 + [Professional / enterprise options](https://sailsjs.com/enterprise)
 
+### Frontend
+
+Angular.js - https://angularjs.org/ (not to be confused with "Angular")
+Sails socket.io library
 
 ### Version info
 
