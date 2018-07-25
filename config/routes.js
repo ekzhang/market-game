@@ -38,19 +38,19 @@ module.exports.routes = {
     action: 'createRoom'
   },
 
-  'GET /subscribeRoom': {
-    controller: 'EventController',
-    action: 'subscribeRoom'
-  },
-
   'GET /events/:room_id': {
     controller: 'EventController',
-    action: 'filterRoom'
+    action: 'subscribeRoom'
   },
 
   'POST /newRoom': {
     controller: 'RoomController',
     action: 'newRoom'
+  },
+
+  'POST /action': {
+    controller: 'EventController',
+    action: 'action'
   }
 
   /***************************************************************************

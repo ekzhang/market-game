@@ -26,7 +26,6 @@ module.exports = {
     const value = req.param('value');
     const options = req.param('options');
     const room_id = req.param('room_id');
-    sails.log(host);
 
     if (room_id == undefined || room_id.length === 0) {
       return res.badRequest("Invalid room ID");
@@ -41,8 +40,9 @@ module.exports = {
     await Event.create({
       room_id,
       type: 'created',
+      user: host,
       data: {
-        host, question, value, options
+        question, value, options
       }
     });
 

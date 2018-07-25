@@ -6,16 +6,20 @@ angular.module('marketGame', [])
 })
 .controller('RoomController', function($scope) {
   $scope.events = [];
-  io.socket.get('/subscribeRoom', {room_id: $scope.room}, function(data, resp) {
-    if (resp.statusCode !== 200) {
-      alert("An unkonwn error occurred. Please try again.");
-    }
-    $scope.events = data;
-    $scope.$apply();
-  });
-  io.socket.on("room" + $scope.room, function(msg) {
-    $scope.events.push(msg);
-  });
+  $scope.init = function() {
+    io.socket.get('/events/' + $scope.room, {}, function(data, resp) {
+      if (resp.statusCode !== 200) {
+        alert("An unkonwn error occurred. Please try again.");
+      }
+      $scope.events = data;
+      $scope.$apply();
+    });
+    io.socket.on("message", function(msg) {
+      $scope.events.push(msg);
+      console.log(msg);
+      $scope.$apply();
+    });
+  }
 })
 .controller('CreateRoomController', function($scope) {
   $scope.options = {};
