@@ -25,16 +25,21 @@ module.exports = {
     const question = req.param('question');
     const value = req.param('value');
     const options = req.param('options');
+    const room_id = req.param('room_id');
     sails.log(host);
 
-    const events = await Event.find({ room_id: req.param('room_id'), type: 'created' });
+    if (room_id == undefined || room_id.length === 0) {
+      return res.badRequest("Invalid room ID");
+    }
+
+    const events = await Event.find({ room_id: room_id, type: 'created' });
     if (events.length !== 0) {
       // Already created!
       return res.badRequest("Room already created");
     }
 
     await Event.create({
-      room_id: req.param('room_id'),
+      room_id,
       type: 'created',
       data: {
         host, question, value, options

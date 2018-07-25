@@ -1,3 +1,6 @@
 <div ng-controller="RoomController" ng-init="room = <%= room %>">
   <h1>Room {{room}}</h1>
+  <ul>
+    <li ng-repeat="event in events">{{event.type}}</li>
+  </ul>
 </div>

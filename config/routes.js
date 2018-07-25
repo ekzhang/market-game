@@ -38,6 +38,11 @@ module.exports.routes = {
     action: 'createRoom'
   },
 
+  'GET /subscribeRoom': {
+    controller: 'EventController',
+    action: 'subscribeRoom'
+  },
+
   'GET /events/:room_id': {
     controller: 'EventController',
     action: 'filterRoom'

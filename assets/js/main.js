@@ -5,7 +5,17 @@ angular.module('marketGame', [])
   };
 })
 .controller('RoomController', function($scope) {
-  // io.socket.get('/')
+  $scope.events = [];
+  io.socket.get('/subscribeRoom', {room_id: $scope.room}, function(data, resp) {
+    if (resp.statusCode !== 200) {
+      alert("An unkonwn error occurred. Please try again.");
+    }
+    $scope.events = data;
+    $scope.$apply();
+  });
+  io.socket.on("room" + $scope.room, function(msg) {
+    $scope.events.push(msg);
+  });
 })
 .controller('CreateRoomController', function($scope) {
   $scope.options = {};
@@ -19,7 +29,7 @@ angular.module('marketGame', [])
       if (resp.statusCode === 200)
         window.location.href = '/room/' + $scope.room;
       else
-        alert("Error: Room already created!");
+        alert("Error: " + "Invalid room or data!");
     });
   }
 });
