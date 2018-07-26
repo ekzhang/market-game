@@ -69,16 +69,16 @@ module.exports = {
         return res.badRequest("Not allowed to end this game");
     }
     else if (verb === 'bid' || verb === 'at') {
-      const amt = req.param('amt');
-      if (!amt)
-        return res.badRequest("No `amt` provided");
+      const amt = Number(req.param('amt'));
+      if (isNaN(amt) || !Number.isInteger(amt) || amt < 0)
+        return res.badRequest("Invalid number provided");
       if ((verb === 'bid' && amt <= info.buy) || (verb === 'at' && amt >= info.sell))
         return res.badRequest("Invalid bid/at cost");
-      event.data = Number(amt);
+      event.data = amt;
     }
     else if (verb === 'taken' || verb === 'sold') {
       if ((verb === 'taken' && isNaN(info.sell)) || (verb === 'sold' && isNaN(info.buy)))
-        return res.badRequest("Not allowed to end this game");
+        return res.badRequest("No current offer to take/sell");
     }
     else {
       return res.badRequest("Invalid verb");
