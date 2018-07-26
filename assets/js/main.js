@@ -1,4 +1,7 @@
 angular.module('marketGame', [])
+.config(function($locationProvider) {
+  $locationProvider.html5Mode(true);
+})
 .filter('username', function() {
   return function(input) {
     return input.split('|')[0];
@@ -82,11 +85,15 @@ angular.module('marketGame', [])
     });
   }
 })
-.controller('NicknameController', function($scope) {
+.controller('NicknameController', function($scope, $location) {
   $scope.submit = function() {
     io.socket.post('/nick', { nick: $scope.nick }, function(data, resp) {
       if (resp.statusCode === 200) {
-        window.location.href = '/';
+        const next = $location.search().next || '/';
+        window.location.href = next;
+      }
+      else {
+        alert("Error: " + JSON.parse(data));
       }
     });
   }

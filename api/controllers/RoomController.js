@@ -15,7 +15,7 @@ module.exports = {
 
   joinRoom: async function(req, res) {
     if (!req.session.uid) {
-      return res.redirect('/nick');
+      return res.redirect('/nick' + '?next=' + encodeURIComponent(req.url));
     }
 
     const room_id = req.param('room_id');
