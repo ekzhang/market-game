@@ -1,7 +1,7 @@
 angular.module('marketGame', [])
 .filter('username', function() {
   return function(input) {
-    return input.split(',')[0];
+    return input.split('|')[0];
   }
 })
 .controller('HomepageController', function($scope) {
