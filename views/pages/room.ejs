@@ -34,7 +34,7 @@
         </ul>
       </div>
     </div>
-    <div class="row justify-content-center mb-4">
+    <div class="row justify-content-center mb-4" ng-if="uid !== host">
       <div class="col-md-2 col-sm-3 col-4">Exposure: {{ exposure[uid] ? exposure[uid] : 0 | sign }}</div>
       <div class="col-md-2 col-sm-3 col-4">Profit: {{ profit[uid] ? profit[uid] : 0 | sign }}</div>
     </div>
@@ -61,8 +61,8 @@
     <div class="net-profits" ng-if="!ongoing || uid === host">
       <h4>Net Profits (Value = {{ value }})</h4>
       <ul class="event-list list-unstyled">
-        <li ng-repeat="user in users">
-          {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}
+        <li ng-repeat="user in users" ng-if="user !== host">
+          {{ user | username }}
           ({{ exposure[user] | sign }}, {{ profit[user] | sign }})
           -> {{ exposure[user] * value + profit[user] | sign }} Sparc Chips
         </li>
