@@ -5,7 +5,7 @@
     <ul class="eventList">
       <li ng-repeat="event in events">
         {{ event.createdAt | date:'[HH:mm]' }}
-        {{ event.user }}
+        {{ event.user | username }}
         {{ event.type | uppercase }}
         {{ event.data ? event.data : '' }}
       </li>
