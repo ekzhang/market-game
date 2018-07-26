@@ -1,7 +1,7 @@
 angular.module('marketGame', [])
-.config(function($locationProvider) {
+.config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode(true);
-})
+}])
 .filter('username', function() {
   return function(input) {
     return input.split('|')[0];
@@ -12,7 +12,7 @@ angular.module('marketGame', [])
     return (Number(input) > 0 ? '+' : '') + input;
   }
 })
-.controller('HomepageController', function($scope) {
+.controller('HomepageController', ['$scope', function($scope) {
   $scope.joinRoom = function() {
     let room = "";
     const letters = 'abcdefghijklmnopqrstuvwxyz';
@@ -21,8 +21,8 @@ angular.module('marketGame', [])
     }
     window.location.href = '/room/' + room;
   };
-})
-.controller('RoomController', function($scope) {
+}])
+.controller('RoomController', ['$scope', function($scope) {
   $scope.isNaN = isNaN;
   $scope.events = [];
 
@@ -106,8 +106,8 @@ angular.module('marketGame', [])
       $scope.update();
     });
   }
-})
-.controller('CreateRoomController', function($scope) {
+}])
+.controller('CreateRoomController', ['$scope', function($scope) {
   $scope.options = {};
   $scope.newRoom = function() {
     io.socket.post('/newRoom', {
@@ -122,8 +122,8 @@ angular.module('marketGame', [])
         alert("Error: " + JSON.parse(data));
     });
   }
-})
-.controller('NicknameController', function($scope, $location) {
+}])
+.controller('NicknameController', ['$scope', '$location', function($scope, $location) {
   $scope.submit = function() {
     io.socket.post('/nick', { nick: $scope.nick }, function(data, resp) {
       if (resp.statusCode === 200) {
@@ -135,5 +135,5 @@ angular.module('marketGame', [])
       }
     });
   }
-})
+}])
 ;
