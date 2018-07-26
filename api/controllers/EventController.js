@@ -66,7 +66,7 @@ module.exports = {
     if (verb === 'end') {
       // End the game
       if (info.host !== user)
-        return res.badRequest("Not allowed to end this game");
+        return res.forbidden("Not allowed to end this game");
     }
     else if (verb === 'bid' || verb === 'at') {
       const amt = Number(req.param('amt'));
