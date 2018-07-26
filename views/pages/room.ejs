@@ -13,16 +13,16 @@
 
     <form ng-submit="action('bid', bidAmount)">
       <input type="text" ng-model="bidAmount">
-      <input type="submit" value="Bid!">
+      <input type="submit" value="Bid!" ng-disabled="!ongoing">
     </form>
     <form ng-submit="action('at', atAmount)">
       <input type="text" ng-model="atAmount">
-      <input type="submit" value="At!">
+      <input type="submit" value="At!" ng-disabled="!ongoing">
     </form>
-    <button ng-click="action('sold')">Sold!</button>
-    <button ng-click="action('taken')">Taken!</button>
+    <button ng-click="action('sold')" ng-disabled="!ongoing">Sold!</button>
+    <button ng-click="action('taken')" ng-disabled="!ongoing">Taken!</button>
     <br>
     <br>
-    <button ng-click="action('end')">End Game</button>
+    <button ng-click="action('end')" ng-show="uid === host && ongoing">End Game</button>
   </div>
 </div>

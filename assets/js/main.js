@@ -29,26 +29,20 @@ angular.module('marketGame', [])
   };
 
   $scope.update = function() {
-    let host = null;
-    let sell = NaN, buy = NaN;
-    let ongoing = true;
-    let nicks = {};
+    $scope.host = null;
+    $scope.sell = NaN, buy = NaN;
+    $scope.ongoing = true;
     for (const e of $scope.events) {
-      if (e.type === 'end') {
-        ongoing = false;
-      }
-      if (e.type === 'created') {
-        host = e.user;
-      }
-      else if (e.type === 'taken' || e.type === 'sold') {
-        sell = buy = NaN;
-      }
-      else if (e.type === 'bid') {
-        buy = e.data;
-      }
-      else if (e.type === 'at') {
-        sell = e.data;
-      }
+      if (e.type === 'end')
+        $scope.ongoing = false;
+      if (e.type === 'created')
+        $scope.host = e.user;
+      else if (e.type === 'taken' || e.type === 'sold')
+        $scope.sell = $scope.buy = NaN;
+      else if (e.type === 'bid')
+        $scope.buy = e.data;
+      else if (e.type === 'at')
+        $scope.sell = e.data;
     }
 
     $scope.$apply();
