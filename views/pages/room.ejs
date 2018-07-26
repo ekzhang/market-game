@@ -10,5 +10,16 @@
         {{ event.data ? event.data : '' }}
       </li>
     </ul>
+
+    <form ng-submit="bid()">
+      <input type="text" ng-model="bidAmount">
+      <input type="submit" value="Bid!">
+    </form>
+    <form ng-submit="at()">
+      <input type="text" ng-model="atAmount">
+      <input type="submit" value="At!">
+    </form>
+    <button ng-click="sold()">Sold!</button>
+    <button ng-click="taken()">Taken!</button>
   </div>
 </div>

@@ -12,7 +12,15 @@ angular.module('marketGame', [])
 .controller('RoomController', function($scope) {
   $scope.events = [];
 
-  $scope.update = function () {
+  $scope.bid = function() {
+    io.socket.post("/action", {verb: 'bid', room_id: $scope.room, amt: $scope.bidAmount}, function(data, resp) {
+      if (resp.statusCode !== 200) {
+        alert("Error: " + data);
+      }
+    });
+  }
+
+  $scope.update = function() {
     let host = null;
     let sell = NaN, buy = NaN;
     let ongoing = true;
