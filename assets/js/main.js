@@ -7,6 +7,11 @@ angular.module('marketGame', [])
     return input.split('|')[0];
   }
 })
+.filter('sign', function() {
+  return function(input) {
+    return (Number(input) > 0 ? '+' : '') + input;
+  }
+})
 .controller('HomepageController', function($scope) {
   $scope.joinRoom = function() {
     let room = "";
@@ -30,20 +35,57 @@ angular.module('marketGame', [])
   };
 
   $scope.update = function() {
-    $scope.host = null;
     $scope.sell = NaN, buy = NaN;
+    let sellUser, buyUser;
     $scope.ongoing = true;
+    $scope.log = [];
+    $scope.users = [];
+    $scope.exposure = {};
+    $scope.profit = {};
     for (const e of $scope.events) {
+      if ($scope.users.indexOf(e.user) === -1) {
+        $scope.users.push(e.user);
+        $scope.exposure[e.user] = 0;
+        $scope.profit[e.user] = 0;
+      }
       if (e.type === 'end')
         $scope.ongoing = false;
-      if (e.type === 'created')
+      if (e.type === 'created') {
         $scope.host = e.user;
-      else if (e.type === 'taken' || e.type === 'sold')
+        $scope.question = e.data.question;
+        $scope.value = e.data.value;
+      }
+      else if (e.type === 'taken') {
+        $scope.log.push({
+          buyer: e.user,
+          seller: sellUser,
+          price: $scope.sell
+        });
         $scope.sell = $scope.buy = NaN;
-      else if (e.type === 'bid')
+      }
+      else if (e.type === 'sold') {
+        $scope.log.push({
+          buyer: buyUser,
+          seller: e.user,
+          price: $scope.buy
+        });
+        $scope.sell = $scope.buy = NaN;
+      }
+      else if (e.type === 'bid') {
         $scope.buy = e.data;
-      else if (e.type === 'at')
+        buyUser = e.user;
+      }
+      else if (e.type === 'at') {
         $scope.sell = e.data;
+        sellUser = e.user;
+      }
+    }
+
+    for (const item of $scope.log) {
+      $scope.exposure[item.buyer]++;
+      $scope.exposure[item.seller]--;
+      $scope.profit[item.buyer] -= item.price;
+      $scope.profit[item.seller] += item.price;
     }
 
     $scope.$apply();

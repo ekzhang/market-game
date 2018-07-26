@@ -1,10 +1,30 @@
 <div ng-controller="RoomController" ng-init="room = '<%= room %>'; uid = '<%= uid %>'; init()">
-  <h1>Room {{room}}</h1>
+  <h1>Room {{ room }}</h1>
   <div ng-if="loaded">
+    <h3>Estimate: {{ question }}</h3>
+    <div class="transactions">
+      <h2>My Transactions</h2>
+      <ul class="eventList">
+        <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
+          <span ng-if="item.buyer === uid">BUY {{ item.seller | username }} {{ item.price }}</span>
+          <span ng-if="item.seller === uid && item.buyer !== uid">SELL {{ item.buyer | username }} {{ item.price }}</span>
+        </li>
+      </ul>
+    </div>
+    <div class="log">
+      <h2>All Transactions</h2>
+      <ul class="eventList">
+        <li ng-repeat="item in log">
+          {{ item.seller | username }}
+          => {{ item.buyer | username }}
+          {{ item.price }}
+        </li>
+      </ul>
+    </div>
     <div class="events">
       <h2>Events</h2>
       <ul class="eventList">
-        <li ng-repeat="event in events">
+        <li ng-repeat="event in events" ng-if="event.type !== 'created'">
           {{ event.createdAt | date:'[HH:mm]' }}
           {{ event.user | username }}
           {{ event.type | uppercase }}
@@ -12,7 +32,7 @@
         </li>
       </ul>
     </div>
-    <div class="controls" ng-if="ongoing">
+    <div class="controls" ng-if="ongoing && uid !== host">
       <form ng-submit="action('bid', bidAmount)">
         <input type="text" ng-model="bidAmount">
         <input type="submit" value="Bid!">
@@ -23,9 +43,22 @@
       </form>
       <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
       <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button>
-      <br>
-      <br>
+    </div>
+    <div class="host-controls" ng-if="ongoing && uid === host">
       <button ng-click="action('end')" ng-show="uid === host">End Game</button>
+      <!-- TODO: host can stimulate market.
+      <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
+      <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button> -->
+    </div>
+    <div class="net-profits" ng-if="!ongoing || uid === host">
+      <h2>Net Profits</h2>
+      <ul class="eventList">
+        <li ng-repeat="user in users">
+          {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}
+          ({{ exposure[user] | sign }}, {{ profit[user] | sign }})
+          -> {{ exposure[user] * value + profit[user] | sign }} Sparc Chips
+        </li>
+      </ul>
     </div>
     <h2 ng-if="!ongoing">The game has ended.</h2>
   </div>
