@@ -1,28 +1,32 @@
 <div ng-controller="RoomController" ng-init="room = '<%= room %>'; uid = '<%= uid %>'; init()">
   <h1>Room {{room}}</h1>
-  <div class="events">
-    <h2>Events</h2>
-    <ul class="eventList">
-      <li ng-repeat="event in events">
-        {{ event.createdAt | date:'[HH:mm]' }}
-        {{ event.user | username }}
-        {{ event.type | uppercase }}
-        {{ event.data ? event.data : '' }}
-      </li>
-    </ul>
-
-    <form ng-submit="action('bid', bidAmount)">
-      <input type="text" ng-model="bidAmount">
-      <input type="submit" value="Bid!" ng-disabled="!ongoing">
-    </form>
-    <form ng-submit="action('at', atAmount)">
-      <input type="text" ng-model="atAmount">
-      <input type="submit" value="At!" ng-disabled="!ongoing">
-    </form>
-    <button ng-click="action('sold')" ng-disabled="!ongoing">Sold!</button>
-    <button ng-click="action('taken')" ng-disabled="!ongoing">Taken!</button>
-    <br>
-    <br>
-    <button ng-click="action('end')" ng-show="uid === host && ongoing">End Game</button>
+  <div ng-if="loaded">
+    <div class="events">
+      <h2>Events</h2>
+      <ul class="eventList">
+        <li ng-repeat="event in events">
+          {{ event.createdAt | date:'[HH:mm]' }}
+          {{ event.user | username }}
+          {{ event.type | uppercase }}
+          {{ event.data ? event.data : '' }}
+        </li>
+      </ul>
+    </div>
+    <div class="controls" ng-if="ongoing">
+      <form ng-submit="action('bid', bidAmount)">
+        <input type="text" ng-model="bidAmount">
+        <input type="submit" value="Bid!">
+      </form>
+      <form ng-submit="action('at', atAmount)">
+        <input type="text" ng-model="atAmount">
+        <input type="submit" value="At!">
+      </form>
+      <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
+      <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button>
+      <br>
+      <br>
+      <button ng-click="action('end')" ng-show="uid === host">End Game</button>
+    </div>
+    <h2 ng-if="!ongoing">The game has ended.</h2>
   </div>
 </div>

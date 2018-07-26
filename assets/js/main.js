@@ -18,6 +18,7 @@ angular.module('marketGame', [])
   };
 })
 .controller('RoomController', function($scope) {
+  $scope.isNaN = isNaN;
   $scope.events = [];
 
   $scope.action = function(verb, amt) {
@@ -53,6 +54,7 @@ angular.module('marketGame', [])
       if (resp.statusCode !== 200) {
         alert("An unkonwn error occurred. Please try again.");
       }
+      $scope.loaded = true;
       $scope.events = data;
       $scope.update();
     });
