@@ -3,7 +3,12 @@
   <div class="events">
     <h2>Events</h2>
     <ul class="eventList">
-      <li ng-repeat="event in events">{{event.createdAt | date:'[HH:mm]'}} {{event.user}} {{event.type | uppercase}} {{event.data ? event.data : ''}}</li>
+      <li ng-repeat="event in events">
+        {{ event.createdAt | date:'[HH:mm]' }}
+        {{ event.user }}
+        {{ event.type | uppercase }}
+        {{ event.data ? event.data : '' }}
+      </li>
     </ul>
   </div>
 </div>
