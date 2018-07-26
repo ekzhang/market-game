@@ -20,7 +20,7 @@ angular.module('marketGame', [])
   $scope.action = function(verb, amt) {
     io.socket.post('/action', { verb, room_id: $scope.room, amt }, function(data, resp) {
       if (resp.statusCode !== 200) {
-        alert("Error: " + data);
+        alert("Error: " + JSON.parse(data));
       }
     });
   };
@@ -78,7 +78,7 @@ angular.module('marketGame', [])
       if (resp.statusCode === 200)
         window.location.href = '/room/' + $scope.room;
       else
-        alert("Error: " + "Invalid room or data!");
+        alert("Error: " + JSON.parse(data));
     });
   }
 })
