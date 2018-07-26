@@ -7,8 +7,8 @@
 
 var _ = require('@sailshq/lodash');
 
-async function getRoom(room_id) {
-  return await Event.find({
+function getRoom(room_id) {
+  return Event.find({
     where: { room_id: room_id },
     sort: 'createdAt ASC'
   });
@@ -66,12 +66,19 @@ module.exports = {
     if (verb === 'end') {
       // End the game
       if (info.host !== user)
-        return res.badRequest("Not allowed to end this game.");
+        return res.badRequest("Not allowed to end this game");
     }
-    else if (verb === 'bid' || verb === 'at'
-      || verb === 'taken' || verb === 'sold') {
-
-      event.data = req.param("amt");
+    else if (verb === 'bid' || verb === 'at') {
+      const amt = req.param('amt');
+      if (!amt)
+        return res.badRequest("No `amt` provided");
+      if ((verb === 'bid' && amt <= info.buy) || (verb === 'at' && amt >= info.sell))
+        return res.badRequest("Invalid bid/at cost");
+      event.data = Number(amt);
+    }
+    else if (verb === 'taken' || verb === 'sold') {
+      if ((verb === 'taken' && isNaN(info.sell)) || (verb === 'sold' && isNaN(info.buy)))
+        return res.badRequest("Not allowed to end this game");
     }
     else {
       return res.badRequest("Invalid verb");

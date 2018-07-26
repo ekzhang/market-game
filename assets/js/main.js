@@ -1,6 +1,11 @@
 angular.module('marketGame', [])
 .controller('HomepageController', function($scope) {
-  $scope.joinRoom = function(room) {
+  $scope.joinRoom = function() {
+    let room = "";
+    const letters = 'abcdefghijklmnopqrstuvwxyz';
+    for (let i = 0; i < 6; i++) {
+      room += letters[Math.floor(Math.random() * 26)];
+    }
     window.location.href = '/room/' + room;
   };
 })

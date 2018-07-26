@@ -1,6 +1,9 @@
 <div ng-controller="RoomController" ng-init="room = <%= room %>; init()">
   <h1>Room {{room}}</h1>
-  <ul>
-    <li ng-repeat="event in events">{{event.type}}</li>
-  </ul>
+  <div class="events">
+    <h2>Events</h2>
+    <ul class="eventList">
+      <li ng-repeat="event in events">{{event.createdAt | date:'[HH:mm]'}} {{event.user}} {{event.type | uppercase}} {{event.data ? event.data : ''}}</li>
+    </ul>
+  </div>
 </div>
