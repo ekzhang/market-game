@@ -4,6 +4,11 @@
     <h3>Estimate: {{ question }}</h3>
     <div class="transactions">
       <h2>My Transactions</h2>
+      <p>
+        Exposure: {{ exposure[uid] ? exposure[uid] : 0 }}<br>
+        Profit: {{ profit[uid] ? profit[uid] : 0 }}
+      </p>
+      <p></p>
       <ul class="eventList">
         <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
           <span ng-if="item.buyer === uid">BUY {{ item.seller | username }} {{ item.price }}</span>
@@ -41,17 +46,17 @@
         <input type="text" ng-model="atAmount">
         <input type="submit" value="At!">
       </form>
-      <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
-      <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button>
+      <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button> {{ isNaN(buy) ? '' : buy }}
+      <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button> {{ isNaN(sell) ? '' : sell }}
     </div>
     <div class="host-controls" ng-if="ongoing && uid === host">
-      <button ng-click="action('end')" ng-show="uid === host">End Game</button>
+      <button ng-click="action('end')" ng-show="uid === host">Close Market</button>
       <!-- TODO: host can stimulate market.
       <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
       <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button> -->
     </div>
     <div class="net-profits" ng-if="!ongoing || uid === host">
-      <h2>Net Profits</h2>
+      <h2>Net Profits (Value = {{ value }})</h2>
       <ul class="eventList">
         <li ng-repeat="user in users">
           {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}

@@ -70,7 +70,7 @@ module.exports = {
     }
     else if (verb === 'bid' || verb === 'at') {
       const amt = Number(req.param('amt'));
-      if (isNaN(amt) || !Number.isInteger(amt) || amt < 0)
+      if (isNaN(amt) || !Number.isInteger(amt) || amt < 0 || amt > 1000)
         return res.badRequest("Invalid number provided");
       if ((verb === 'bid' && amt <= info.buy) || (verb === 'at' && amt >= info.sell))
         return res.badRequest("Invalid bid/at cost");

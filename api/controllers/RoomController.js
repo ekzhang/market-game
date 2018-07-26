@@ -46,7 +46,7 @@ module.exports = {
       return res.badRequest("Invalid room ID");
     if (!question)
       return res.badRequest("No question provided");
-    if (isNaN(value) || !Number.isInteger(value) || value <= 0)
+    if (isNaN(value) || !Number.isInteger(value) || value <= 0 || value > 1000)
       return res.badRequest("Invalid asset value");
 
     const events = await Event.find({ room_id: room_id, type: 'created' });
