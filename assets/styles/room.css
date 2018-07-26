@@ -1,3 +1,9 @@
-.eventList {
+.event-list {
+  text-align: left;
   font-family: monospace;
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 6px;
+  height: 250px;
+  overflow: auto;
 }

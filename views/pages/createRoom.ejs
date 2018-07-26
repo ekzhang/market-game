@@ -1,10 +1,15 @@
-<div ng-controller="CreateRoomController" ng-init="room = '<%= room %>'">
-  <h1>Create Room: {{room}}</h1>
-  <form ng-submit="newRoom()">
-    Options for room: TODO <br>
-    Question: <input ng-model="question"> <br>
-    Answer: <input ng-model="answer"> <br>
+<div class="container" ng-controller="CreateRoomController" ng-init="room = '<%= room %>'">
+  <h1>Create Room</h1>
+  <form ng-submit="newRoom()" class="text-left">
+    <div class="form-group">
+      <label for="questionInput">Question</label>
+      <input type="text" class="form-control" id="questionInput" ng-model="question" placeholder="Estimate...">
+    </div>
+    <div class="form-group">
+      <label for="answerInput">Answer</label>
+      <input type="text" class="form-control" id="answerInput" ng-model="answer" placeholder="1..1000">
+    </div>
 
-    <input type="submit" value="Create!"></input>
+    <input type="submit" value="Create!" class="btn btn-primary"></input>
   </form>
 </div>
