@@ -11,18 +11,18 @@
       </li>
     </ul>
 
-    <form ng-submit="bid()">
+    <form ng-submit="action('bid', bidAmount)">
       <input type="text" ng-model="bidAmount">
       <input type="submit" value="Bid!">
     </form>
-    <form ng-submit="at()">
+    <form ng-submit="action('at', atAmount)">
       <input type="text" ng-model="atAmount">
       <input type="submit" value="At!">
     </form>
-    <button ng-click="sold()">Sold!</button>
-    <button ng-click="taken()">Taken!</button>
+    <button ng-click="action('sold')">Sold!</button>
+    <button ng-click="action('taken')">Taken!</button>
     <br>
     <br>
-    <button ng-click="endGame()">End Game</button>
+    <button ng-click="action('end')">End Game</button>
   </div>
 </div>
