@@ -23,7 +23,7 @@ angular.module('marketGame', [])
         alert("Error: " + data);
       }
     });
-  }
+  };
 
   $scope.at = function() {
     io.socket.post("/action", {verb: 'at', room_id: $scope.room, amt: $scope.atAmount}, function(data, resp) {
@@ -31,7 +31,7 @@ angular.module('marketGame', [])
         alert("Error: " + data);
       }
     });
-  }
+  };
 
   $scope.sold = function() {
     io.socket.post("/action", {verb: 'sold', room_id: $scope.room}, function(data, resp) {
@@ -39,7 +39,7 @@ angular.module('marketGame', [])
         alert("Error: " + data);
       }
     });
-  }
+  };
 
   $scope.taken = function() {
     io.socket.post("/action", {verb: 'taken', room_id: $scope.room}, function(data, resp) {
@@ -47,7 +47,15 @@ angular.module('marketGame', [])
         alert("Error: " + data);
       }
     });
-  }
+  };
+
+  $scope.endGame = function() {
+    io.socket.post("/action", {verb: 'end', room_id: $scope.room}, function(data, resp) {
+      if (resp.statusCode !== 200) {
+        alert("Error: " + data);
+      }
+    });
+  };
 
   $scope.update = function() {
     let host = null;
