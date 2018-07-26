@@ -51,6 +51,15 @@ module.exports.routes = {
   'POST /action': {
     controller: 'EventController',
     action: 'action'
+  },
+
+  'GET /nick': {
+    view: 'pages/setNick'
+  },
+
+  'POST /nick': {
+    controller: 'NicknameController',
+    action: 'setNick'
   }
 
   /***************************************************************************

@@ -11,18 +11,45 @@ angular.module('marketGame', [])
 })
 .controller('RoomController', function($scope) {
   $scope.events = [];
+
+  $scope.update = function () {
+    let host = null;
+    let sell = NaN, buy = NaN;
+    let ongoing = true;
+    let nicks = {};
+    for (const e of $scope.events) {
+      if (e.type === 'end') {
+        ongoing = false;
+      }
+      if (e.type === 'created') {
+        host = e.user;
+      }
+      else if (e.type === 'taken' || e.type === 'sold') {
+        sell = buy = NaN;
+      }
+      else if (e.type === 'bid') {
+        buy = e.data;
+      }
+      else if (e.type === 'at') {
+        sell = e.data;
+      }
+    }
+
+    $scope.$apply();
+  }
+
   $scope.init = function() {
     io.socket.get('/events/' + $scope.room, {}, function(data, resp) {
       if (resp.statusCode !== 200) {
         alert("An unkonwn error occurred. Please try again.");
       }
       $scope.events = data;
-      $scope.$apply();
+      $scope.update();
     });
     io.socket.on("message", function(msg) {
       $scope.events.push(msg);
       console.log(msg);
-      $scope.$apply();
+      $scope.update();
     });
   }
 })
@@ -41,4 +68,14 @@ angular.module('marketGame', [])
         alert("Error: " + "Invalid room or data!");
     });
   }
-});
+})
+.controller('NicknameController', function($scope) {
+  $scope.submit = function() {
+    io.socket.post('/nick', { nick: $scope.nick }, function(data, resp) {
+      if (resp.statusCode === 200) {
+        window.location.href = '/';
+      }
+    });
+  }
+})
+;

@@ -55,7 +55,7 @@ module.exports = {
       return res.badRequest("No such active room");
     }
 
-    const user = req.session.id;
+    const user = req.session.uid;
     let event = {
       room_id,
       type: verb,
