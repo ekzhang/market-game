@@ -39,11 +39,11 @@
       <div class="col-md-2 col-sm-3 col-6">Profit: {{ profit[uid] ? profit[uid] : 0 | sign }}</div>
     </div>
     <div class="row mb-2" ng-if="ongoing && uid !== host">
-      <form class="col form-inline justify-content-center" ng-submit="action('bid', bidAmount)">
+      <form class="col form-inline justify-content-center" ng-submit="action('bid', 'bidAmount')">
         <input class="form-control mr-2" type="text" placeholder="Bid" ng-model="bidAmount">
         <input class="btn btn-primary" type="submit" value="Bid!">
       </form>
-      <form class="col form-inline justify-content-center" ng-submit="action('at', atAmount)">
+      <form class="col form-inline justify-content-center" ng-submit="action('at', 'atAmount')">
         <input class="form-control mr-2" type="text" placeholder="At" ng-model="atAmount">
         <input class="btn btn-primary" type="submit" value="At!">
       </form>

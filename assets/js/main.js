@@ -26,10 +26,13 @@ angular.module('marketGame', [])
   $scope.isNaN = isNaN;
   $scope.events = [];
 
-  $scope.action = function(verb, amt) {
+  $scope.action = function(verb, name) {
+    const amt = this[name];
+    if (name)
+      this[name] = '';
     io.socket.post('/action', { verb, room_id: $scope.room, amt }, function(data, resp) {
       if (resp.statusCode !== 200) {
-        alert("Error: " + JSON.parse(data));
+        swal("Error", JSON.parse(data), "error");
       }
     });
   };
@@ -94,7 +97,7 @@ angular.module('marketGame', [])
   $scope.init = function() {
     io.socket.get('/events/' + $scope.room, {}, function(data, resp) {
       if (resp.statusCode !== 200) {
-        alert("An unkonwn error occurred. Please try again.");
+        swal("Error", "An unkonwn error occurred. Please try again.", "error");
       }
       $scope.loaded = true;
       $scope.events = data;
@@ -119,7 +122,7 @@ angular.module('marketGame', [])
       if (resp.statusCode === 200)
         window.location.href = '/room/' + $scope.room;
       else
-        alert("Error: " + JSON.parse(data));
+        swal("Error", JSON.parse(data), "error");
     });
   }
 }])
@@ -131,7 +134,7 @@ angular.module('marketGame', [])
         window.location.href = next;
       }
       else {
-        alert("Error: " + JSON.parse(data));
+        swal("Error", JSON.parse(data), "error");
       }
     });
   }
