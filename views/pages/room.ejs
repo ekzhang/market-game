@@ -51,11 +51,11 @@
     <div class="row" ng-if="ongoing && uid !== host">
       <div class="col">
         {{ isNaN(buy) ? 'No trades' : 'Best: ' + buy }}
-        <button class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
+        <button class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="isNaN(buy) || buyUser === uid">Sold!</button>
       </div>
       <div class="col">
         {{ isNaN(sell) ? 'No trades' : 'Best: ' + sell }}
-        <button class="btn btn-sm btn-outline-primary" ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button>
+        <button class="btn btn-sm btn-outline-primary" ng-click="action('taken')" ng-disabled="isNaN(sell) || sellUser === uid">Taken!</button>
       </div>
     </div>
     <div class="net-profits" ng-if="!ongoing || uid === host">
