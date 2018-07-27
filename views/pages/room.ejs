@@ -3,7 +3,7 @@
   <p>Estimate: {{ question }}</p>
   <div ng-if="loaded" class="container">
     <div class="row">
-      <div class="transactions col">
+      <div class="transactions col-md-4">
         <h4>My Transactions</h4>
         <ul class="event-list list-unstyled">
           <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
@@ -12,7 +12,7 @@
           </li>
         </ul>
       </div>
-      <div class="log col">
+      <div class="log col-md-4">
         <h4>All Transactions</h4>
         <ul class="event-list list-unstyled">
           <li ng-repeat="item in log">
@@ -22,7 +22,7 @@
           </li>
         </ul>
       </div>
-      <div class="events col">
+      <div class="events col-md-4">
         <h4>Events</h4>
         <ul class="event-list list-unstyled">
           <li ng-repeat="event in events" ng-if="event.type !== 'created'">
@@ -35,8 +35,8 @@
       </div>
     </div>
     <div class="row justify-content-center mb-4" ng-if="uid !== host">
-      <div class="col-md-2 col-sm-3 col-4">Exposure: {{ exposure[uid] ? exposure[uid] : 0 | sign }}</div>
-      <div class="col-md-2 col-sm-3 col-4">Profit: {{ profit[uid] ? profit[uid] : 0 | sign }}</div>
+      <div class="col-md-2 col-sm-3 col-6">Exposure: {{ exposure[uid] ? exposure[uid] : 0 | sign }}</div>
+      <div class="col-md-2 col-sm-3 col-6">Profit: {{ profit[uid] ? profit[uid] : 0 | sign }}</div>
     </div>
     <div class="row mb-2" ng-if="ongoing && uid !== host">
       <form class="col form-inline justify-content-center" ng-submit="action('bid', bidAmount)">
