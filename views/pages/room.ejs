@@ -5,7 +5,7 @@
     <div class="row">
       <div class="transactions col-md-4">
         <h4>My Transactions</h4>
-        <ul class="event-list list-unstyled">
+        <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
             <span ng-if="item.buyer === uid">BUY {{ item.seller | username }} {{ item.price }}</span>
             <span ng-if="item.seller === uid && item.buyer !== uid">SELL {{ item.buyer | username }} {{ item.price }}</span>
@@ -14,7 +14,7 @@
       </div>
       <div class="log col-md-4">
         <h4>All Transactions</h4>
-        <ul class="event-list list-unstyled">
+        <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log">
             {{ item.seller | username }}
             => {{ item.buyer | username }}
@@ -24,7 +24,7 @@
       </div>
       <div class="events col-md-4">
         <h4>Events</h4>
-        <ul class="event-list list-unstyled">
+        <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="event in events" ng-if="event.type !== 'created'">
             {{ event.createdAt | date:'[HH:mm]' }}
             {{ event.user | username }}

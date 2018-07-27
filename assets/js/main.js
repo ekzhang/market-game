@@ -1,4 +1,4 @@
-angular.module('marketGame', [])
+angular.module('marketGame', ['luegg.directives'])
 .config(['$locationProvider', function($locationProvider) {
   $locationProvider.html5Mode(true);
 }])
