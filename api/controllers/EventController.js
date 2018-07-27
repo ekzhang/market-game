@@ -17,6 +17,7 @@ function getRoom(room_id) {
 function aggregate(room) {
   let host = null;
   let sell = NaN, buy = NaN;
+  let suser = null, buser = null;
   for (const e of room) {
     if (e.type === 'end') {
       return null;
@@ -26,15 +27,18 @@ function aggregate(room) {
     }
     else if (e.type === 'taken' || e.type === 'sold') {
       sell = buy = NaN;
+      suser = buser = null;
     }
     else if (e.type === 'bid') {
       buy = e.data;
+      buser = e.user;
     }
     else if (e.type === 'at') {
       sell = e.data;
+      suser = e.user;
     }
   }
-  return { host, sell, buy };
+  return { host, sell, buy, suser, buser };
 }
 
 module.exports = {
@@ -79,6 +83,8 @@ module.exports = {
     else if (verb === 'taken' || verb === 'sold') {
       if ((verb === 'taken' && isNaN(info.sell)) || (verb === 'sold' && isNaN(info.buy)))
         return res.badRequest("No current offer to take/sell");
+      if ((verb === 'sold' && user === info.buser) || (verb === 'taken' && user === info.suser))
+        return res.badRequest("Cannot take own offer");
     }
     else {
       return res.badRequest("Invalid verb");
