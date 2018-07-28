@@ -5,8 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-var _ = require('@sailshq/lodash');
-
 function getRoom(room_id) {
   return Event.find({
     where: { room_id: room_id },
@@ -97,4 +95,3 @@ module.exports = {
   }
 
 };
-
