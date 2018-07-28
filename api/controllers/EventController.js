@@ -46,7 +46,8 @@ module.exports = {
   subscribeRoom: async function(req, res) {
     const room_id = req.param('room_id');
     const result = await getRoom(room_id);
-    sails.sockets.join(req, "room" + room_id);
+    if (req.isSocket)
+      sails.sockets.join(req, "room" + room_id);
     return res.json(result);
   },
 
