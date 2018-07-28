@@ -28,8 +28,8 @@ angular.module('marketGame', ['luegg.directives'])
 
   $scope.copyLink = function() {
     document.execCommand("copy");
-    console.log("FES");
-    var text_to_share = '/room/' + $scope.room;
+    console.log("Copied:" + window.location.href);
+    var text_to_share = window.location.href;
 
     // create temp element
     var copyElement = document.createElement("span");
