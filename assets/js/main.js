@@ -26,6 +26,29 @@ angular.module('marketGame', ['luegg.directives'])
   $scope.isNaN = isNaN;
   $scope.events = [];
 
+  $scope.copyLink = function() {
+    document.execCommand("copy");
+    console.log("FES");
+    var text_to_share = '/room/' + $scope.room;
+
+    // create temp element
+    var copyElement = document.createElement("span");
+    copyElement.appendChild(document.createTextNode(text_to_share));
+    copyElement.id = 'tempCopyToClipboard';
+    angular.element(document.body.append(copyElement));
+
+    // select the text
+    var range = document.createRange();
+    range.selectNode(copyElement);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    // copy & cleanup
+    document.execCommand('copy');
+    window.getSelection().removeAllRanges();
+    copyElement.remove();
+  };
+
   $scope.action = function(verb, name) {
     const amt = this[name];
     if (name)

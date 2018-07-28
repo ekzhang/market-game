@@ -11,7 +11,7 @@ function escapeStr(str) {
     .replace(/\u0000/g, '\\0');
 }
 
-module.exports = {
+module.exports = {  
 
   joinRoom: async function(req, res) {
     if (!req.session.uid) {
