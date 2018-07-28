@@ -61,8 +61,8 @@ angular.module('marketGame', ['luegg.directives'])
   };
 
   $scope.update = function() {
-    $scope.sell = NaN, buy = NaN;
-    let sellUser, buyUser;
+    $scope.sell = $scope.buy = NaN;
+    $scope.sellUser = $scope.buyUser = null;
     $scope.ongoing = true;
     $scope.log = [];
     $scope.users = [];
@@ -84,14 +84,14 @@ angular.module('marketGame', ['luegg.directives'])
       else if (e.type === 'taken') {
         $scope.log.push({
           buyer: e.user,
-          seller: sellUser,
+          seller: $scope.sellUser,
           price: $scope.sell
         });
         $scope.sell = $scope.buy = NaN;
       }
       else if (e.type === 'sold') {
         $scope.log.push({
-          buyer: buyUser,
+          buyer: $scope.buyUser,
           seller: e.user,
           price: $scope.buy
         });
@@ -99,11 +99,11 @@ angular.module('marketGame', ['luegg.directives'])
       }
       else if (e.type === 'bid') {
         $scope.buy = e.data;
-        buyUser = e.user;
+        $scope.buyUser = e.user;
       }
       else if (e.type === 'at') {
         $scope.sell = e.data;
-        sellUser = e.user;
+        $scope.sellUser = e.user;
       }
     }
 
