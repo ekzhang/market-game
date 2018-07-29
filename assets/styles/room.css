@@ -7,3 +7,10 @@
   height: 250px;
   overflow: auto;
 }
+
+.homeButton {
+  position: absolute;
+  display: block;
+  left: 10px;
+  top: 10px;
+}
