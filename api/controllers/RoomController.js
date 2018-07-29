@@ -62,9 +62,8 @@ module.exports = {
   },
 
   recentGames: async function(req, res) {
-    let yesterday = new Date();
+    let hourAgo = new Date() - 1000 * 60 * 60;
     let weekAgo = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
     weekAgo.setDate(weekAgo.getDate() - 7);
 
     const result = await Event.find({
@@ -85,9 +84,9 @@ module.exports = {
       }
       else if (e.type === 'created') {
         const ended = rooms.has(e.room_id);
-        if (ended || e.createdAt > yesterday) {
+        if (ended || e.createdAt > hourAgo) {
           // Only include ongoing games if they were
-          // started less than a day ago.
+          // started less than an hour ago.
           ret.push({
             ended,
             event: e
