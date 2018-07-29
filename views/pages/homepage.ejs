@@ -1,7 +1,7 @@
 <div ng-controller="HomepageController">
   <h1>Estimation Markets</h1>
 
-  <div ng-if="recent" class="mx-auto" style="width: 40%">
+  <div ng-if="recent" class="mx-auto col-md-8 col-lg-6">
     <h4>Recent Games</h4>
     <ul class="list-unstyled event-list mx-auto">
       <li ng-repeat="game in recent" ng-class="{ 'font-weight-bold': !game.ended }">
