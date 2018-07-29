@@ -13,6 +13,11 @@ angular.module('marketGame', ['luegg.directives'])
   }
 })
 .controller('HomepageController', ['$scope', function($scope) {
+  io.socket.get('/recent', {}, function(data, resp) {
+    $scope.recent = data;
+    $scope.$apply();
+  });
+
   $scope.joinRoom = function() {
     let room = "";
     const letters = 'abcdefghijklmnopqrstuvwxyz';

@@ -78,6 +78,11 @@ module.exports.routes = {
     action: 'setNick'
   },
 
+  'GET /recent': {
+    controller: 'RoomController',
+    action: 'recentGames'
+  }
+
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
   //  ╚╩╝╚═╝╚═╝╩ ╩╚═╝╚═╝╩ ╩╚═╝

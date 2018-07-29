@@ -1,6 +1,15 @@
 <div ng-controller="HomepageController">
   <h1>Estimation Markets</h1>
 
+  <h4>Recent Games</h4>
+  <ul ng-if="recent" class="list-unstyled event-list mx-auto" style="width: 40%">
+    <li ng-repeat="game in recent" ng-class="{ 'font-weight-bold': !game.ended }">
+      <a ng-href="/room/{{ game.event.room_id }}">{{ game.event.room_id }}</a>
+      {{ game.event.data.question }}
+    </li>
+    <li ng-if="recent.length === 0">No recent games found. Create your own!</li>
+  </ul>
+
   <form ng-submit="joinRoom()">
     <input type="submit" value="New Room" class="btn btn-primary">
   </form>

@@ -59,6 +59,44 @@ module.exports = {
     });
 
     return res.ok();
+  },
+
+  recentGames: async function(req, res) {
+    let yesterday = new Date();
+    let weekAgo = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    weekAgo.setDate(weekAgo.getDate() - 7);
+
+    const result = await Event.find({
+      where: {
+        type: ['created', 'end'],
+        createdAt: {
+          '>': weekAgo
+        }
+      },
+      sort: 'createdAt DESC'
+    });
+
+    const rooms = new Set();
+    const ret = [];
+    for (const e of result) {
+      if (e.type === 'end') {
+        rooms.add(e.room_id);
+      }
+      else if (e.type === 'created') {
+        const ended = rooms.has(e.room_id);
+        if (ended || e.createdAt > yesterday) {
+          // Only include ongoing games if they were
+          // started less than a day ago.
+          ret.push({
+            ended,
+            event: e
+          });
+        }
+      }
+    }
+
+    return res.json(ret);
   }
 
 };
