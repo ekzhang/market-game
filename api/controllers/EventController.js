@@ -79,7 +79,8 @@ module.exports = {
       const amt = Number(req.param('amt'));
       if (isNaN(amt) || !Number.isInteger(amt) || amt <= 0 || amt > 1000)
         return res.badRequest("Invalid number provided");
-      if ((verb === 'bid' && amt <= info.buy) || (verb === 'at' && amt >= info.sell))
+      if ((verb === 'bid' && (amt <= info.buy || amt >= info.sell))
+          || (verb === 'at' && (amt >= info.sell || amt <= info.buy)))
         return res.badRequest("Invalid bid/at cost");
       event.data = amt;
     }
