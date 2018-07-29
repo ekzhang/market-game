@@ -17,6 +17,14 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  // '*': true,
+  '*': true,
+
+  RoomController: {
+    '*': 'hasNick',
+  },
+
+  EventController: {
+    'action': 'hasNick',
+  },
 
 };

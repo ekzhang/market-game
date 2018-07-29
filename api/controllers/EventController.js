@@ -5,8 +5,6 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-var _ = require('@sailshq/lodash');
-
 function getRoom(room_id) {
   return Event.find({
     where: { room_id: room_id },
@@ -46,7 +44,8 @@ module.exports = {
   subscribeRoom: async function(req, res) {
     const room_id = req.param('room_id');
     const result = await getRoom(room_id);
-    sails.sockets.join(req, "room" + room_id);
+    if (req.isSocket)
+      sails.sockets.join(req, "room" + room_id);
     return res.json(result);
   },
 
@@ -96,4 +95,3 @@ module.exports = {
   }
 
 };
-

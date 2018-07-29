@@ -11,13 +11,9 @@ function escapeStr(str) {
     .replace(/\u0000/g, '\\0');
 }
 
-module.exports = {  
+module.exports = {
 
   joinRoom: async function(req, res) {
-    if (!req.session.uid) {
-      return res.redirect('/nick' + '?next=' + encodeURIComponent(req.url));
-    }
-
     const room_id = req.param('room_id');
     const events = await Event.find({ room_id: room_id, type: 'created' });
     if (events.length !== 0)
@@ -35,8 +31,6 @@ module.exports = {
 
   newRoom: async function(req, res) {
     const host = req.session.uid;
-    if (!host)
-      return res.badRequest("No user host");
     const question = req.param('question');
     const value = Number(req.param('value'));
     const options = req.param('options');
@@ -68,4 +62,3 @@ module.exports = {
   }
 
 };
-

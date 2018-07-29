@@ -38,29 +38,9 @@ module.exports.routes = {
     action: 'createRoom'
   },
 
-  'GET /events/:room_id': {
-    controller: 'EventController',
-    action: 'subscribeRoom'
-  },
-
-  'POST /newRoom': {
-    controller: 'RoomController',
-    action: 'newRoom'
-  },
-
-  'POST /action': {
-    controller: 'EventController',
-    action: 'action'
-  },
-
   'GET /nick': {
     view: 'pages/setNick'
   },
-
-  'POST /nick': {
-    controller: 'NicknameController',
-    action: 'setNick'
-  }
 
   /***************************************************************************
   *                                                                          *
@@ -78,7 +58,25 @@ module.exports.routes = {
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
   //  ╩ ╩╩  ╩  ╚═╝╝╚╝═╩╝╩  ╚═╝╩╝╚╝ ╩ ╚═╝
 
+  'GET /events/:room_id': {
+    controller: 'EventController',
+    action: 'subscribeRoom'
+  },
 
+  'POST /newRoom': {
+    controller: 'RoomController',
+    action: 'newRoom'
+  },
+
+  'POST /action': {
+    controller: 'EventController',
+    action: 'action'
+  },
+
+  'POST /nick': {
+    controller: 'NicknameController',
+    action: 'setNick'
+  },
 
   //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
   //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
