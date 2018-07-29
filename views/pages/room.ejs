@@ -70,9 +70,6 @@
     </div>
     <div class="row host-controls" ng-if="ongoing && uid === host">
       <button class="btn btn-danger mx-auto" ng-click="action('end')">Close Market</button>
-      <!-- TODO: host can stimulate market.
-      <button ng-click="action('sold')" ng-disabled="isNaN(buy)">Sold!</button>
-      <button ng-click="action('taken')" ng-disabled="isNaN(sell)">Taken!</button> -->
     </div>
     <h4 ng-if="!ongoing">The game has ended.</h4>
   </div>
