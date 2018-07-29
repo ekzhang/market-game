@@ -42,11 +42,18 @@ angular.module('marketGame', ['luegg.directives'])
     range.selectNode(copyElement);
     window.getSelection().removeAllRanges();
     window.getSelection().addRange(range);
-
     // copy & cleanup
     document.execCommand('copy');
     window.getSelection().removeAllRanges();
     copyElement.remove();
+
+    var button = document.getElementById("copyLink");
+    button.innerHTML = "Copied!";
+    button.disabled = true;
+    window.setTimeout(function() {
+      button.innerHTML = "Copy Link";
+      button.disabled = false;
+    }, 1000);
   };
 
   $scope.action = function(verb, name) {

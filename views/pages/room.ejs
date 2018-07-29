@@ -1,5 +1,5 @@
 <div ng-controller="RoomController" ng-init="room = '<%= room %>'; uid = '<%= uid %>'; init()">
-  <h1>Room (<button class="btn btn-sm btn-outline-primary" ng-click="copyLink()">Copy Link</button>)</h1>
+  <h1>Room <button class="btn btn-sm btn-outline-secondary" id="copyLink" ng-click="copyLink()">Copy Link</button></h1>
   <p>Estimate: {{ question }}</p>
   <div ng-if="loaded" class="container">
     <div class="row">
