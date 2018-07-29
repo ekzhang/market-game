@@ -23,9 +23,13 @@ function aggregate(room) {
     if (e.type === 'created') {
       host = e.user;
     }
-    else if (e.type === 'taken' || e.type === 'sold') {
-      sell = buy = NaN;
-      suser = buser = null;
+    else if (e.type === 'taken') {
+      sell = NaN;
+      suser = null;
+    }
+    else if (e.type === 'sold') {
+      buy = NaN;
+      buser = null;
     }
     else if (e.type === 'bid') {
       buy = e.data;

@@ -27,13 +27,9 @@ angular.module('marketGame', ['luegg.directives'])
   $scope.events = [];
 
   $scope.copyLink = function() {
-    document.execCommand("copy");
-    console.log("Copied:" + window.location.href);
-    var text_to_share = window.location.href;
-
     // create temp element
     var copyElement = document.createElement("span");
-    copyElement.appendChild(document.createTextNode(text_to_share));
+    copyElement.appendChild(document.createTextNode(window.location.href));
     copyElement.id = 'tempCopyToClipboard';
     angular.element(document.body.append(copyElement));
 
@@ -87,7 +83,7 @@ angular.module('marketGame', ['luegg.directives'])
           seller: $scope.sellUser,
           price: $scope.sell
         });
-        $scope.sell = $scope.buy = NaN;
+        $scope.sell = NaN;
       }
       else if (e.type === 'sold') {
         $scope.log.push({
@@ -95,7 +91,7 @@ angular.module('marketGame', ['luegg.directives'])
           seller: e.user,
           price: $scope.buy
         });
-        $scope.sell = $scope.buy = NaN;
+        $scope.buy = NaN;
       }
       else if (e.type === 'bid') {
         $scope.buy = e.data;
