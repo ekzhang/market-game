@@ -26,7 +26,7 @@
         <h4>Events</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="event in events" ng-if="event.type !== 'created'">
-            {{ event.createdAt | date:'[HH:mm]' }}
+            {{ event.createdAt | date:'[mm:ss]' }}
             {{ event.user | username }}
             {{ event.type | uppercase }}
             {{ event.data ? event.data : '' }}
@@ -48,7 +48,7 @@
         <input class="btn btn-primary" type="submit" value="At!">
       </form>
     </div>
-    <div class="row" ng-if="ongoing && uid !== host">
+    <div class="row" ng-if="ongoing">
       <div class="col">
         {{ isNaN(buy) ? 'No trades' : 'Best: ' + buy }}
         <button class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="isNaN(buy) || buyUser === uid">Sold!</button>
@@ -61,8 +61,8 @@
     <div class="net-profits" ng-if="!ongoing || uid === host">
       <h4>Net Profits (Value = {{ value }})</h4>
       <ul class="event-list list-unstyled">
-        <li ng-repeat="user in users" ng-if="user !== host">
-          {{ user | username }}
+        <li ng-repeat="user in users">
+          {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}
           ({{ exposure[user] | sign }}, {{ profit[user] | sign }})
           -> {{ exposure[user] * value + profit[user] | sign }} Sparc Chips
         </li>
