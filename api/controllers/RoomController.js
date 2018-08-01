@@ -63,15 +63,15 @@ module.exports = {
 
   recentGames: async function(req, res) {
     let hourAgo = new Date() - 1000 * 60 * 60;
-    let weekAgo = new Date();
-    weekAgo.setDate(weekAgo.getDate() - 7);
+    // let weekAgo = new Date();
+    // weekAgo.setDate(weekAgo.getDate() - 7);
 
     const result = await Event.find({
       where: {
         type: ['created', 'end'],
-        createdAt: {
-          '>': weekAgo
-        }
+        // createdAt: {
+        //   '>': weekAgo
+        // }
       },
       sort: 'createdAt DESC'
     });
