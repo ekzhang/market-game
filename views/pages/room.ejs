@@ -64,7 +64,7 @@
         <li ng-repeat="user in users">
           {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}
           ({{ exposure[user] | sign }}, {{ profit[user] | sign }})
-          -> {{ exposure[user] * value + profit[user] | sign }} Sparc Chips
+          -> {{ exposure[user] * value + profit[user] | sign }} Chips
         </li>
       </ul>
     </div>
