@@ -5,9 +5,9 @@
   "description": "a Sails application",
   "keywords": [],
   "dependencies": {
+    "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
     "async": "2.0.1",
-    "connect-mongo": "^2.0.3",
     "grunt": "^1.0.3",
     "mutexify": "^1.2.0",
     "sails": "^1.1.0",
