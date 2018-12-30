@@ -2,8 +2,12 @@
   "name": "market-game",
   "private": true,
   "version": "0.0.0",
-  "description": "a Sails application",
-  "keywords": [],
+  "description": "Run estimation markets online with your friends, no login or signups required.",
+  "keywords": [
+    "estimation",
+    "market",
+    "game"
+  ],
   "dependencies": {
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
@@ -29,10 +33,10 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/ezhang/market-game.git"
+    "url": "git://github.com/ekzhang/market-game.git"
   },
-  "author": "ezhang",
-  "license": "",
+  "author": "ekzhang",
+  "license": "MIT",
   "engines": {
     "node": ">=10.3"
   }
