@@ -7,13 +7,13 @@
   "dependencies": {
     "@sailshq/lodash": "^3.10.3",
     "async": "2.0.1",
-    "connect-mongo": "^2.0.1",
+    "connect-mongo": "^2.0.3",
     "grunt": "^1.0.3",
     "mutexify": "^1.2.0",
-    "sails": "^1.0.2",
+    "sails": "^1.1.0",
     "sails-hook-grunt": "^3.0.2",
-    "sails-hook-orm": "^2.0.0-16",
-    "sails-hook-sockets": "^1.4.0",
+    "sails-hook-orm": "^2.1.1",
+    "sails-hook-sockets": "^1.5.5",
     "sails-mongo": "^1.0.1",
     "uuid": "^3.3.2"
   },
