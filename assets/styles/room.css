@@ -14,3 +14,16 @@
   left: 10px;
   top: 10px;
 }
+
+.user {
+  text-decoration: underline;
+}
+
+.user:hover {
+  background: yellow;
+  cursor: pointer;
+}
+
+.verb {
+  font-style: italic;
+}

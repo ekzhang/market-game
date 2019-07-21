@@ -13,11 +13,12 @@ module.exports = {
     if (!req.session.uuid) {
       req.session.uuid = uuid();
     }
-    if (!req.param('nick')) {
+    let nick = req.param('nick').trim();
+    if (!nick) {
       return res.badRequest("No nickname provided");
     }
-    req.session.nick = req.param('nick');
-    req.session.uid = req.session.nick + "|" + req.session.uuid;
+    req.session.nick = nick;
+    req.session.uid = nick + "|" + req.session.uuid;
     return res.ok();
   }
 

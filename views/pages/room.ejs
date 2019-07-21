@@ -1,14 +1,14 @@
 <div ng-controller="RoomController" ng-init="room = '<%= room %>'; uid = '<%= uid %>'; init()">
-  <h1>Room <button class="btn btn-sm btn-outline-secondary" id="copyLink" ng-click="copyLink()">Copy Link</button></h1>
-  <p>Estimate: {{ question }}</p>
+  <h1>Trading Room <button class="btn btn-sm btn-outline-secondary" id="copyLink" ng-click="copyLink()">Copy Link</button></h1>
+  <p><em><b>Estimate:</b> {{ question }}</em></p>
   <div ng-if="loaded" class="container">
     <div class="row">
       <div class="transactions col-md-4">
         <h4>My Transactions</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
-            <span ng-if="item.buyer === uid">BUY {{ item.seller | username }} {{ item.price }}</span>
-            <span ng-if="item.seller === uid && item.buyer !== uid">SELL {{ item.buyer | username }} {{ item.price }}</span>
+            <span ng-if="item.buyer === uid"><span class="verb">BUY</span> <user id="item.seller"></user> ${{ item.price }}</span>
+            <span ng-if="item.seller === uid && item.buyer !== uid"><span class="verb">SELL</span> <user id="item.buyer"></user> ${{ item.price }}</span>
           </li>
         </ul>
       </div>
@@ -16,9 +16,9 @@
         <h4>All Transactions</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log">
-            {{ item.seller | username }}
-            => {{ item.buyer | username }}
-            {{ item.price }}
+            <user id="item.seller"></user>
+            &rArr; <user id="item.buyer"></user>:
+            ${{ item.price }}
           </li>
         </ul>
       </div>
@@ -26,45 +26,45 @@
         <h4>Events</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="event in events" ng-if="event.type !== 'created'">
-            {{ event.createdAt | date:'[mm:ss]' }}
-            {{ event.user | username }}
-            {{ event.type | uppercase }}
-            {{ event.data ? event.data : '' }}
+            {{ event.createdAt - roomCreated | date:'[mm:ss]' }}
+            <user id="event.user"></user>
+            <span class="verb">{{ event.type | uppercase }}</span>
+            {{ event.data ? '$' + event.data : '' }}
           </li>
         </ul>
       </div>
     </div>
     <div class="row justify-content-center mb-4" ng-if="uid !== host">
-      <div class="col-md-2 col-sm-3 col-6">Exposure: {{ exposure[uid] ? exposure[uid] : 0 | sign }}</div>
-      <div class="col-md-2 col-sm-3 col-6">Profit: {{ profit[uid] ? profit[uid] : 0 | sign }}</div>
+      <div class="col-md-3 col-sm-4 col-6">Exposure: <b>{{ exposure[uid] ? exposure[uid] : 0 | sign }}</b></div>
+      <div class="col-md-3 col-sm-4 col-6">Profit: <b>{{ profit[uid] ? profit[uid] : 0 | sign: true }}</b></div>
     </div>
     <div class="row mb-2" ng-if="ongoing && uid !== host">
       <form class="col form-inline justify-content-center" ng-submit="action('bid', 'bidAmount')">
-        <input class="form-control mr-2" type="text" placeholder="Bid" ng-model="bidAmount">
-        <input class="btn btn-primary" type="submit" value="Bid!">
+        <input class="form-control mr-2" style="flex: 1; min-width: 0; max-width: 240px" type="text" placeholder="$1..$1000" ng-model="bidAmount">
+        <input class="btn btn-primary" type="submit" value="Bid">
       </form>
       <form class="col form-inline justify-content-center" ng-submit="action('at', 'atAmount')">
-        <input class="form-control mr-2" type="text" placeholder="At" ng-model="atAmount">
-        <input class="btn btn-primary" type="submit" value="At!">
+        <input class="form-control mr-2" style="flex: 1; min-width: 0; max-width: 240px" type="text" placeholder="$1..$1000" ng-model="atAmount">
+        <input class="btn btn-primary" type="submit" value="At">
       </form>
     </div>
     <div class="row" ng-if="ongoing">
       <div class="col">
-        {{ isNaN(buy) ? 'No trades' : 'Best: ' + buy }}
-        <button class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="isNaN(buy) || buyUser === uid">Sold!</button>
+        {{ isNaN(buy) ? 'No bids' : 'Highest bid: $' + buy }}<br>
+        <button ng-if="!isNaN(buy)" class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="buyUser === uid">Sold at ${{ buy }}!</button>
       </div>
       <div class="col">
-        {{ isNaN(sell) ? 'No trades' : 'Best: ' + sell }}
-        <button class="btn btn-sm btn-outline-primary" ng-click="action('taken')" ng-disabled="isNaN(sell) || sellUser === uid">Taken!</button>
+        {{ isNaN(sell) ? 'No sellers' : 'Lowest seller: $' + sell }}<br>
+        <button ng-if="!isNaN(sell)" class="btn btn-sm btn-outline-primary" ng-click="action('taken')" ng-disabled="sellUser === uid">Taken for ${{ sell }}!</button>
       </div>
     </div>
     <div class="net-profits" ng-if="!ongoing || uid === host">
-      <h4>Net Profits (Value = {{ value }})</h4>
+      <h4>Net Profits (Value = <b>${{ value }}</b>)</h4>
       <ul class="event-list list-unstyled">
         <li ng-repeat="user in users">
-          {{ user | username }} {{ user === host ? '&lt;HOST&gt;' : '' }}
-          ({{ exposure[user] | sign }}, {{ profit[user] | sign }})
-          -> {{ exposure[user] * value + profit[user] | sign }} Chips
+          <user id="user"></user> {{ user === host ? '&lt;HOST&gt;' : '' }}
+          ({{ exposure[user] | sign }}, {{ profit[user] | sign: true }}):
+          <b>{{ exposure[user] * value + profit[user] | sign }} chips</b>
         </li>
       </ul>
     </div>

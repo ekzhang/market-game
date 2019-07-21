@@ -8,8 +8,17 @@ angular.module('marketGame', ['luegg.directives'])
   }
 })
 .filter('sign', function() {
-  return function(input) {
-    return (Number(input) > 0 ? '+' : '') + input;
+  return function(num, money) {
+    return (Number(num) >= 0 ? '+' : '-') + (money ? '$' : '') + Math.abs(num);
+  }
+})
+.directive('user', function() {
+  return {
+    restrict: 'E',
+    scope: {
+      id: '='
+    },
+    template: '<span class="user" title="{{ id }}">{{ id | username }}</span>'
   }
 })
 .controller('HomepageController', ['$scope', function($scope) {
@@ -88,6 +97,7 @@ angular.module('marketGame', ['luegg.directives'])
         $scope.host = e.user;
         $scope.question = e.data.question;
         $scope.value = e.data.value;
+        $scope.roomCreated = e.createdAt;
       }
       else if (e.type === 'taken') {
         $scope.log.push({
@@ -121,6 +131,11 @@ angular.module('marketGame', ['luegg.directives'])
       $scope.profit[item.buyer] -= item.price;
       $scope.profit[item.seller] += item.price;
     }
+
+    $scope.users.sort(function(a, b) {
+      return ($scope.exposure[b] * $scope.value + $scope.profit[b]) -
+        ($scope.exposure[a] * $scope.value + $scope.profit[a]);
+    });
 
     $scope.$apply();
   }

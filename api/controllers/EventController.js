@@ -81,7 +81,7 @@ module.exports = {
             return res.forbidden("Not allowed to end this game");
         }
         else if (verb === 'bid' || verb === 'at') {
-          const amt = Number(req.param('amt'));
+          const amt = Number(req.param('amt').replace(/\$/g, ''));
           if (isNaN(amt) || !Number.isInteger(amt) || amt <= 0 || amt > 1000)
             return res.badRequest("Invalid number provided");
           if ((verb === 'bid' && (amt <= info.buy || amt >= info.sell))
