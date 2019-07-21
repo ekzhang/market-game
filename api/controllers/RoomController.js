@@ -16,11 +16,16 @@ module.exports = {
   joinRoom: async function(req, res) {
     const room_id = req.param('room_id');
     const events = await Event.find({ room_id: room_id, type: 'created' });
-    if (events.length !== 0)
+    if (events.length !== 0) {
+      const endEvents = await Event.find({ room_id: room_id, type: 'end' });
+      if (endEvents.length === 0 && !req.session.uid) {
+        return res.redirect('/nick' + '?next=' + encodeURIComponent(req.url));
+      }
       return res.view('pages/room.ejs', {
         room: escapeStr(room_id),
         uid: escapeStr(req.session.uid)
       });
+    }
     return res.redirect('/createRoom/' + room_id);
   },
 

@@ -3,7 +3,7 @@
   <p><em><b>Estimate:</b> {{ question }}</em></p>
   <div ng-if="loaded" class="container">
     <div class="row">
-      <div class="transactions col-md-4">
+      <div class="transactions col-md" ng-if="isPlayer">
         <h4>My Transactions</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log" ng-if="item.buyer === uid || item.seller === uid">
@@ -12,7 +12,7 @@
           </li>
         </ul>
       </div>
-      <div class="log col-md-4">
+      <div class="log col-md">
         <h4>All Transactions</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="item in log">
@@ -22,7 +22,7 @@
           </li>
         </ul>
       </div>
-      <div class="events col-md-4">
+      <div class="events col-md">
         <h4>Events</h4>
         <ul class="event-list list-unstyled" scroll-glue>
           <li ng-repeat="event in events" ng-if="event.type !== 'created'">
@@ -34,7 +34,7 @@
         </ul>
       </div>
     </div>
-    <div class="row justify-content-center mb-4" ng-if="uid !== host">
+    <div class="row justify-content-center mb-4" ng-if="uid !== host && isPlayer">
       <div class="col-md-3 col-sm-4 col-6">Exposure: <b>{{ exposure[uid] ? exposure[uid] : 0 | sign }}</b></div>
       <div class="col-md-3 col-sm-4 col-6">Profit: <b>{{ profit[uid] ? profit[uid] : 0 | sign: true }}</b></div>
     </div>

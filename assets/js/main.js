@@ -137,6 +137,8 @@ angular.module('marketGame', ['luegg.directives'])
       $scope.profit[item.seller] += item.price;
     }
 
+    $scope.isPlayer = $scope.ongoing || $scope.users.indexOf($scope.uid) !== -1;
+
     $scope.users.sort(function(a, b) {
       return ($scope.exposure[b] * $scope.value + $scope.profit[b]) -
         ($scope.exposure[a] * $scope.value + $scope.profit[a]);

@@ -20,7 +20,6 @@ module.exports.policies = {
   '*': true,
 
   RoomController: {
-    'joinRoom': 'hasNick',
     'createRoom': 'hasNick',
     'newRoom': 'hasNick',
   },
