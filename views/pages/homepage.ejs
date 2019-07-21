@@ -4,7 +4,7 @@
   <div ng-if="recent" class="mx-auto col-md-8 col-lg-6">
     <h4>Recent Games</h4>
     <ul class="list-unstyled event-list mx-auto">
-      <li ng-repeat="game in recent" ng-class="{ 'font-weight-bold': !game.ended }">
+      <li ng-repeat="game in recent" ng-class="{ 'ongoing-game': !game.ended }">
         <a ng-href="/room/{{ game.event.room_id }}">{{ game.event.room_id }}</a>
         {{ game.event.data.question }}
       </li>
@@ -13,6 +13,6 @@
   </div>
 
   <form ng-submit="joinRoom()">
-    <input type="submit" value="New Room" class="btn btn-primary">
+    <input type="submit" value="New Game" class="btn btn-primary">
   </form>
 </div>

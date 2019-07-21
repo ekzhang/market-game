@@ -49,15 +49,16 @@ module.exports = {
       return res.badRequest("Room already created");
     }
 
-    await Event.create({
+    const e = await Event.create({
       room_id,
       type: 'created',
       user: host,
       data: {
         question, value, options
       }
-    });
+    }).fetch();
 
+    sails.sockets.broadcast('homepage', 'newroom', { ended: false, event: e });
     return res.ok();
   },
 
@@ -95,6 +96,8 @@ module.exports = {
       }
     }
 
+    if (req.isSocket)
+      sails.sockets.join(req, 'homepage');
     return res.json(ret);
   }
 

@@ -27,3 +27,8 @@
 .verb {
   font-style: italic;
 }
+
+.ongoing-game {
+  font-weight: bold;
+  background: lightcyan;
+}
