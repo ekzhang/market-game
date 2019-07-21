@@ -11,13 +11,13 @@
   "dependencies": {
     "@sailshq/connect-redis": "^3.2.1",
     "@sailshq/lodash": "^3.10.3",
-    "async": "2.0.1",
-    "grunt": "^1.0.3",
+    "async": "^3.1.0",
+    "grunt": "^1.0.4",
     "mutexify": "^1.2.0",
-    "sails": "^1.1.0",
-    "sails-hook-grunt": "^3.0.2",
+    "sails": "^1.2.3",
+    "sails-hook-grunt": "^3.1.1",
     "sails-hook-orm": "^2.1.1",
-    "sails-hook-sockets": "^1.5.5",
+    "sails-hook-sockets": "^2.0.0",
     "sails-mongo": "^1.0.1",
     "uuid": "^3.3.2"
   },
