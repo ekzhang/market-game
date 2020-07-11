@@ -5,7 +5,7 @@
  * @help        :: See https://sailsjs.com/docs/concepts/actions
  */
 
-const uuid = require('uuid/v4');
+const { v4: uuid } = require('uuid');
 
 module.exports = {
 
