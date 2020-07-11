@@ -13,6 +13,7 @@
     "@sailshq/lodash": "^3.10.4",
     "async": "^3.2.0",
     "grunt": "^1.2.1",
+    "lifejacket": "^0.9.4",
     "mutexify": "^1.3.0",
     "sails": "^1.2.4",
     "sails-hook-grunt": "^3.0.1",

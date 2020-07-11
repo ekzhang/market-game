@@ -22,6 +22,12 @@
 module.exports = {
 
 
+  lifejacket: {
+    ensureHttps: true,
+    host: 'estimation-markets.herokuapp.com',
+  },
+
+
   /**************************************************************************
   *                                                                         *
   * Tell Sails what database(s) it should use in production.                *
