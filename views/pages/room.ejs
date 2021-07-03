@@ -45,16 +45,16 @@
       </form>
       <form class="col form-inline justify-content-center" ng-submit="action('at', 'atAmount')">
         <input class="form-control mr-2" style="flex: 1; min-width: 0; max-width: 240px" type="text" placeholder="$1..$1000" ng-model="atAmount">
-        <input class="btn btn-primary" type="submit" value="At">
+        <input class="btn btn-primary" type="submit" value="Ask">
       </form>
     </div>
     <div class="row" ng-if="ongoing">
       <div class="col">
-        {{ isNaN(buy) ? 'No bids' : 'Highest bid: $' + buy }}<br>
+        {{ isNaN(buy) ? 'No buyers' : 'Highest bid: $' + buy }}<br>
         <button ng-if="!isNaN(buy)" class="btn btn-sm btn-outline-primary" ng-click="action('sold')" ng-disabled="buyUser === uid">Sold at ${{ buy }}!</button>
       </div>
       <div class="col">
-        {{ isNaN(sell) ? 'No sellers' : 'Lowest seller: $' + sell }}<br>
+        {{ isNaN(sell) ? 'No sellers' : 'Lowest ask: $' + sell }}<br>
         <button ng-if="!isNaN(sell)" class="btn btn-sm btn-outline-primary" ng-click="action('taken')" ng-disabled="sellUser === uid">Taken for ${{ sell }}!</button>
       </div>
     </div>
@@ -64,7 +64,7 @@
         <li ng-repeat="user in users">
           <user id="user"></user> {{ user === host ? '&lt;HOST&gt;' : '' }}
           ({{ exposure[user] | sign }}, {{ profit[user] | sign: true }}):
-          <b>{{ exposure[user] * value + profit[user] | sign }} chips</b>
+          <b>{{ exposure[user] * value + profit[user] | sign }} dollars</b>
         </li>
       </ul>
     </div>
